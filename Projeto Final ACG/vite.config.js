@@ -1,15 +1,6 @@
-import path from 'node:path';
+import { defineConfig, createLogger } from 'vite';
 import react from '@vitejs/plugin-react';
-import { createLogger, defineConfig } from 'vite';
-
-// vite.config.js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  base: '/Assistente-de-Controle-de-Gastos-ACG---TCC/',
-  plugins: [react()],
-})
+import path from 'node:path';
 
 const configHorizonsViteErrorHandler = `
 const observer = new MutationObserver((mutations) => {
@@ -179,31 +170,31 @@ const addTransformIndexHtml = {
 
 console.warn = () => {};
 
-const logger = createLogger()
-const loggerError = logger.error
+const logger = createLogger();
+const loggerError = logger.error;
 
 logger.error = (msg, options) => {
 	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) {
 		return;
 	}
-
 	loggerError(msg, options);
-}
+};
 
 export default defineConfig({
-	customLogger: logger,
-	plugins: [react(), addTransformIndexHtml],
-	server: {
-		cors: true,
-		headers: {
-			'Cross-Origin-Embedder-Policy': 'credentialless',
-		},
-		allowedHosts: true,
-	},
-	resolve: {
-		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
-		alias: {
-			'@': path.resolve(__dirname, './src'),
-		},
-	},
+  base: '/Assistente-de-Controle-de-Gastos-ACG---TCC/', // nome do repositório
+  customLogger: logger,
+  plugins: [react(), addTransformIndexHtml],
+  server: {
+    cors: true,
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'credentialless',
+    },
+    allowedHosts: true,
+  },
+  resolve: {
+    extensions: ['.jsx', '.js', '.tsx', '.ts', '.json'],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 });
